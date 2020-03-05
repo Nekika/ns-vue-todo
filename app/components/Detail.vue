@@ -7,27 +7,36 @@
         </ActionBar>
         <StackLayout>
             <Label text="Title"></Label>
-            <TextField class="title" v-model="todo.title"></TextField>
+            <TextField class="title" v-model="todo.title" @textChange="onChange"></TextField>
             <Label text="Description"></Label>
-            <TextField class="description" v-model="todo.description" hint="Add a description"></TextField>
+            <TextField class="description" v-model="todo.description" hint="Add a description" @textChange="onChange"></TextField>
         </StackLayout>
     </Page>
 </template>
 
 <script>
-    import {mapMutations} from 'vuex'
+    import {mapActions} from 'vuex'
     export default {
         props: ['todo'],
         methods: {
-            ...mapMutations([
-               'todos/delete'
+            ...mapActions([
+                'todo/removeTodo',
+                'todo/updateTodo',
+                'todo/save'
             ]),
+            onChange: function () {
+                this['todo/updateTodo'](this.todo)
+                    .then(() => this['todo/save']())
+                    .catch(err => console.log(err))
+            },
             onBackTap: function () {
-                this.$navigateBack();
+                this.$navigateBack()
             },
             onDeleteTap: function () {
-                this['todos/delete'](this.todo);
-                this.$navigateBack();
+                this['todo/removeTodo'](this.todo)
+                    .then(() => this['todo/save']())
+                    .catch(err => console.log(err))
+                    .finally(() => this.$navigateBack())
             }
         }
     }

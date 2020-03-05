@@ -25,7 +25,7 @@
         },
         methods: {
             ...mapActions([
-               'todo/addTodo',
+                'todo/addTodo',
                 'todo/save'
             ]),
             onSaveTap: function () {

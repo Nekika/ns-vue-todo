@@ -19,6 +19,10 @@ const mutations = {
     remove: function (state, todo) {
         const index = state.list.indexOf(todo)
         state.list.splice(index, 1)
+    },
+    update: function (state, todo) {
+        const index = state.list.indexOf(todo)
+        state.list[index] = todo
     }
 }
 
@@ -28,8 +32,12 @@ const actions = {
         commit('setList', JSON.parse(todos))
     },
     save: function ({state}) {
-        Storage.setString('todos', JSON.stringify(state.list))
-        console.log(Storage.getString('todos'))
+        return new Promise((resolve, reject) => {
+            try {
+                Storage.setString('todos', JSON.stringify(state.list))
+                resolve()
+            } catch (e) { reject(e) }
+        })
     },
     addTodo: function ({commit}, todo) {
         return new Promise((resolve, reject) => {
@@ -43,6 +51,14 @@ const actions = {
         return new Promise((resolve, reject) => {
             try {
                 commit('remove', todo)
+                resolve()
+            } catch (e) { reject(e) }
+        })
+    },
+    updateTodo: function ({commit}, todo) {
+        return new Promise((resolve, reject) => {
+            try {
+                commit('update', todo)
                 resolve()
             } catch (e) { reject(e) }
         })
