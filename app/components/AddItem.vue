@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import {mapMutations} from 'vuex'
+    import {mapActions} from 'vuex'
     export default {
         data: function(){
             return {
@@ -24,8 +24,9 @@
           }
         },
         methods: {
-            ...mapMutations([
-               'todos/add'
+            ...mapActions([
+               'todo/addTodo',
+                'todo/save'
             ]),
             onSaveTap: function () {
                 const newTodo = {
@@ -33,8 +34,10 @@
                     description: this.description,
                     done: false
                 }
-                this['todos/add'](newTodo)
-                this.$navigateBack()
+                this['todo/addTodo'](newTodo)
+                    .then(() => this['todo/save']())
+                    .catch(err => console.log(err))
+                    .finally(() =>  this.$navigateBack())
             }
         }
     }

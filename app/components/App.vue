@@ -11,10 +11,13 @@
 <script>
     import TodoList from './TodoList';
     import AddItem from './AddItem';
-
+    import {mapActions} from 'vuex'
     export default {
         components: { TodoList, AddItem },
         methods: {
+            ...mapActions([
+                'todo/init'
+            ]),
             onAddTap: function () {
                 this.$navigateTo(AddItem, {
                     props: {
@@ -24,6 +27,9 @@
                 .catch(error => console.log(error))
 
             }
+        },
+        created(){
+            this['todo/init']()
         }
     }
 </script>

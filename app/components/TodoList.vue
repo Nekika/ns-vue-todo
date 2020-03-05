@@ -1,7 +1,7 @@
 <template>
     <GridLayout columns="*" rows="*">
         <ListView col="1" row="1" for="todo in list" @itemTap="onTodoTap">
-            <v-template v-if="todo">
+            <v-template>
                 <TodoItem :todo="todo"></TodoItem>
             </v-template>
         </ListView>
