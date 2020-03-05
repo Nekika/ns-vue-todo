@@ -1,7 +1,7 @@
 <template>
     <GridLayout columns="*" rows="*">
         <ListView col="1" row="1" for="todo in list" @itemTap="onTodoTap">
-            <v-template>
+            <v-template v-if="todo">
                 <TodoItem :todo="todo"></TodoItem>
             </v-template>
         </ListView>
@@ -17,8 +17,8 @@
         name: 'TodoList',
         computed: {
             ...mapGetters({
-                list: 'todos/list',
-                done: 'todos/done'
+                list: 'todo/list',
+                done: 'todo/done'
             })
         },
         methods: {

@@ -5,7 +5,8 @@ const state = {
 }
 
 const getters = {
-    list: state => { return state.list }
+    list: state => { return state.list },
+    done: state => { return state.list.filter(t => {return t.done}) }
 }
 
 const mutations = {
