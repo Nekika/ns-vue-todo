@@ -1,4 +1,27 @@
 {
+  "description": "A simple NativeScript-Vue Todo app",
+  "dependencies": {
+    "@nativescript/theme": "~2.2.1",
+    "@vue/devtools": "^5.3.3",
+    "nativescript-socketio": "^3.3.1",
+    "nativescript-toasty": "^3.0.0-alpha.2",
+    "nativescript-vue": "~2.4.0",
+    "nativescript-vue-devtools": "^1.2.0",
+    "tns-core-modules": "~6.3.0",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.1.0",
+    "@babel/preset-env": "~7.1.0",
+    "babel-loader": "~8.0.0",
+    "nativescript-dev-webpack": "~1.4.0",
+    "nativescript-vue-template-compiler": "~2.4.0",
+    "node-sass": "^4.7.1",
+    "vue-cli-plugin-store": "0.0.7",
+    "vue-loader": "~15.4.0"
+  },
+  "gitHead": "fa98f785df3fba482e5e2a0c76f4be1fa6dc7a14",
+  "license": "SEE LICENSE IN <your-license-filename>",
   "nativescript": {
     "id": "nekika.Todos",
     "tns-android": {
@@ -8,23 +31,6 @@
       "version": "6.3.0"
     }
   },
-  "description": "A simple NativeScript-Vue Todo app",
-  "license": "SEE LICENSE IN <your-license-filename>",
-  "repository": "https://github.com/Nekika/ns-vue-todos",
-  "dependencies": {
-    "@nativescript/theme": "~2.2.1",
-    "nativescript-vue": "~2.4.0",
-    "tns-core-modules": "~6.3.0"
-  },
-  "devDependencies": {
-    "@babel/core": "~7.1.0",
-    "@babel/preset-env": "~7.1.0",
-    "babel-loader": "~8.0.0",
-    "nativescript-dev-webpack": "~1.4.0",
-    "nativescript-vue-template-compiler": "~2.4.0",
-    "node-sass": "^4.7.1",
-    "vue-loader": "~15.4.0"
-  },
-  "gitHead": "fa98f785df3fba482e5e2a0c76f4be1fa6dc7a14",
-  "readme": "NativeScript Application"
+  "readme": "NativeScript Application",
+  "repository": "https://github.com/Nekika/ns-vue-todos"
 }

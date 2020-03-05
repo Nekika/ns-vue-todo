@@ -1,15 +1,11 @@
-import Vue from "nativescript-vue";
+import VueDevtools from 'nativescript-vue-devtools'
+import Vue from "nativescript-vue"
+import Store from './store'
+import App from "./components/App"
 
-import Home from "./components/Home";
+Vue.use(VueDevtools())
 
 new Vue({
-
-    template: `
-        <Frame>
-            <Home />
-        </Frame>`,
-
-    components: {
-        Home
-    }
+    Store,
+    render: h => h('frame', [h(App)])
 }).$start();
