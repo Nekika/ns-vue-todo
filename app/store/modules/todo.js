@@ -25,6 +25,9 @@ const actions = {
     init: function ({commit}) {
         const todos = Storage.getString('todos')
         commit('setList', todos)
+    },
+    save: function ({state}) {
+        Storage.setString('todos', state.list)
     }
 }
 
