@@ -7,7 +7,9 @@
     "nativescript-toasty": "^3.0.0-alpha.2",
     "nativescript-vue": "~2.4.0",
     "nativescript-vue-devtools": "^1.2.0",
-    "tns-core-modules": "~6.3.0",
+    "tns-android": "^6.4.1",
+    "tns-core-modules": "^6.4.2",
+    "tns-ios": "^6.4.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -25,10 +27,10 @@
   "nativescript": {
     "id": "nekika.Todos",
     "tns-android": {
-      "version": "6.3.1"
+      "version": "6.4.1"
     },
     "tns-ios": {
-      "version": "6.3.0"
+      "version": "6.4.2"
     }
   },
   "readme": "NativeScript Application",
