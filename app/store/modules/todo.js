@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
     list: state => { return state.list },
-    done: state => { return state.list.filter(t => {return t.done}) }
+    doneTodos: state => { return state.list.filter(t => {return t.done}) }
 }
 
 const mutations = {
@@ -29,7 +29,7 @@ const mutations = {
 const actions = {
     init: function ({commit}) {
         const todos = Storage.getString('todos')
-        commit('setList', JSON.parse(todos))
+        if (todos) commit('setList', JSON.parse(todos))
     },
     save: function ({state}) {
         return new Promise((resolve, reject) => {
