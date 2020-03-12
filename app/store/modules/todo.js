@@ -1,4 +1,4 @@
-import * as Storage from 'tns-core-modules/application-settings'
+import axios from 'axios'
 
 const state = {
     list: []
@@ -27,9 +27,20 @@ const mutations = {
 }
 
 const actions = {
-    init: function ({commit}) {
-        const todos = Storage.getString('todos')
-        if (todos) commit('setList', JSON.parse(todos))
+    init: function ({commit, rootState}) {
+        const url = "https://api.todolist.sherpa.one/users/signin"
+        const config = {
+            auth: {
+                username: rootState.email,
+                password: rootState.password
+            }
+        }
+        axios.post(url,{}, config)
+            .then(res => commit('setToken', res.data.token, {root: true}))
+            .catch(err => {
+                console.log(err);
+                commit('setError', err, {root: true})
+            })
     },
     save: function ({state}) {
         return new Promise((resolve, reject) => {
