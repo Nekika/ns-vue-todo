@@ -16,7 +16,9 @@
         components: { TodoList, AddItem },
         methods: {
             ...mapActions([
-                'todo/init'
+                'setError',
+                'todo/init',
+                'todo/getTodos'
             ]),
             onAddTap: function () {
                 this.$navigateTo(AddItem, {
@@ -30,6 +32,8 @@
         },
         created(){
             this['todo/init']()
+                .then(() => this['todo/getTodos']())
+                .catch(err => this['setError'](err))
         }
     }
 </script>

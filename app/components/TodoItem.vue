@@ -1,7 +1,7 @@
 <template>
     <GridLayout columns="100, *" :class="todo.done ? 'done' : ''">
         <Button col="0" :text="status" @tap="toggle"></Button>
-        <Label col="1" :text="todo.title"></Label>
+        <Label col="1" :text="todo.content"></Label>
     </GridLayout>
 </template>
 

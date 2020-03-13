@@ -2,8 +2,7 @@
     <Page>
         <StackLayout>
             <Label text="Add a new todo"></Label>
-            <TextField v-model="title" hint="Insert a title"></TextField>
-            <TextField v-model="description" hint="Insert a description"></TextField>
+            <TextField v-model="todo.content" hint="Insert content"></TextField>
             <Button text="Save" :isEnabled="buttonEnabled" @tap="onSaveTap"></Button>
         </StackLayout>
     </Page>
@@ -14,30 +13,27 @@
     export default {
         data: function(){
             return {
-                title: "",
-                description: ""
+               todo: {
+                   content: ''
+               }
             }
         },
         computed: {
           buttonEnabled: function () {
-              return !!this.title.length
+              return !!this.todo.content.length
           }
         },
         methods: {
             ...mapActions([
                 'todo/addTodo',
-                'todo/save'
+                'todo/getTodos',
+                'setError'
             ]),
             onSaveTap: function () {
-                const newTodo = {
-                    title: this.title,
-                    description: this.description,
-                    done: false
-                }
-                this['todo/addTodo'](newTodo)
-                    .then(() => this['todo/save']())
-                    .catch(err => console.log(err))
-                    .finally(() =>  this.$navigateBack())
+                this['todo/addTodo'](this.todo)
+                    .then(() => this['todo/getTodos']())
+                    .catch(err => this['setError'](err))
+                    .finally(() => this.$navigateBack())
             }
         }
     }
