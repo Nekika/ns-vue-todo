@@ -3,13 +3,11 @@
         <ActionBar>
             <NavigationButton text="Back" @tap="onBackTap"></NavigationButton>
             <Label text="Details"></Label>
-            <ActionItem text="Delete" ios.position="right" @tap="onDeleteTap"></ActionItem>
+            <ActionItem text="Delete" ios.position="right" @tap="onDelete"></ActionItem>
         </ActionBar>
         <StackLayout>
-            <Label text="Title"></Label>
-            <TextField class="title" v-model="todo.title" @textChange="onChange"></TextField>
-            <Label text="Description"></Label>
-            <TextField class="description" v-model="todo.description" hint="Add a description" @textChange="onChange"></TextField>
+            <Label text="Todo"></Label>
+            <TextField v-model="todo.content" @textChange="onChange"></TextField>
         </StackLayout>
     </Page>
 </template>
@@ -20,22 +18,22 @@
         props: ['todo'],
         methods: {
             ...mapActions([
-                'todo/removeTodo',
                 'todo/updateTodo',
-                'todo/save'
+                'todo/removeTodo',
+                'setError'
             ]),
-            onChange: function () {
-                this['todo/updateTodo'](this.todo)
-                    .then(() => this['todo/save']())
-                    .catch(err => console.log(err))
-            },
             onBackTap: function () {
                 this.$navigateBack()
             },
-            onDeleteTap: function () {
+            onChange: function () {
+                this['todo/updateTodo'](this.todo)
+                    .then(() => this['todo/getTodos']())
+                    .catch(err => this['setError'](err))
+            },
+            onDelete: function () {
                 this['todo/removeTodo'](this.todo)
-                    .then(() => this['todo/save']())
-                    .catch(err => console.log(err))
+                    .then(() => this['todo/getTodos']())
+                    .catch(err => this['setError'](err))
                     .finally(() => this.$navigateBack())
             }
         }
@@ -53,8 +51,5 @@
     TextField{
         background-color: $gray;
         margin-top: 8px;
-        &.title{
-            margin-bottom: 30px;
-        }
     }
 </style>

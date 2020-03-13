@@ -12,17 +12,6 @@ const getters = {
 const mutations = {
     setList: function (state, list) {
         state.list = list
-    },
-    push: function (state, todo) {
-        state.list.push(todo)
-    },
-    remove: function (state, todo) {
-        const index = state.list.indexOf(todo)
-        state.list.splice(index, 1)
-    },
-    update: function (state, todo) {
-        const index = state.list.indexOf(todo)
-        state.list[index] = todo
     }
 }
 
@@ -51,13 +40,14 @@ const actions = {
                 .catch(err => reject(err))
         })
     },
-    addTodo: function ({commit, rootState}, todo) {
+    addTodo: function ({dispatch, rootState}, todo) {
         return new Promise((resolve, reject) => {
             const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos`
             const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
             axios.post(url, todo, config)
-                .then(resolve())
+                .then(() => { return dispatch('getTodos')})
                 .catch(err => reject(err))
+                .finally(resolve())
         })
     },
     removeTodo: function ({commit}, todo) {
@@ -70,10 +60,7 @@ const actions = {
     },
     updateTodo: function ({commit}, todo) {
         return new Promise((resolve, reject) => {
-            try {
-                commit('update', todo)
-                resolve()
-            } catch (e) { reject(e) }
+
         })
     }
 }

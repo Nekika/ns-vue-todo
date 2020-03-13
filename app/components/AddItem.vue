@@ -26,14 +26,12 @@
         methods: {
             ...mapActions([
                 'todo/addTodo',
-                'todo/getTodos',
                 'setError'
             ]),
             onSaveTap: function () {
                 this['todo/addTodo'](this.todo)
-                    .then(() => this['todo/getTodos']())
+                    .then(() => this.$navigateBack())
                     .catch(err => this['setError'](err))
-                    .finally(() => this.$navigateBack())
             }
         }
     }
