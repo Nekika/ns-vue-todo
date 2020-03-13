@@ -6,7 +6,6 @@ const state = {
 
 const getters = {
     list: state => { return state.list },
-    doneTodos: state => { return state.list.filter(t => {return t.done}) }
 }
 
 const mutations = {
@@ -60,7 +59,7 @@ const actions = {
                 .finally(resolve())
         })
     },
-    updateTodo: function ({state, dispatch, rootState}, todo) {
+    updateTodo: function ({dispatch, rootState}, todo) {
         return new Promise((resolve, reject) => {
             const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos/${todo.uuid}`
             const config = { headers: { Authorization: `Bearer ${rootState.token}` } }

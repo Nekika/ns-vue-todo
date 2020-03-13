@@ -18,7 +18,6 @@
         computed: {
             ...mapGetters({
                 list: 'todo/list',
-                doneTodos: 'todo/done'
             })
         },
         methods: {
