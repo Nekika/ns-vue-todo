@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const state = {
-    list: []
+    list: null
 }
 
 const getters = {
@@ -28,34 +28,36 @@ const mutations = {
 
 const actions = {
     init: function ({commit, rootState}) {
-        const url = "https://api.todolist.sherpa.one/users/signin"
-        const config = {
-            auth: {
-                username: rootState.email,
-                password: rootState.password
-            }
-        }
-        axios.post(url,{}, config)
-            .then(res => commit('setToken', res.data.token, {root: true}))
-            .catch(err => {
-                console.log(err);
-                commit('setError', err, {root: true})
-            })
-    },
-    save: function ({state}) {
         return new Promise((resolve, reject) => {
-            try {
-                Storage.setString('todos', JSON.stringify(state.list))
-                resolve()
-            } catch (e) { reject(e) }
+            const url = "https://api.todolist.sherpa.one/users/signin"
+            const config = { auth: { username: rootState.email, password: rootState.password } }
+            axios.post(url,{}, config)
+                .then(res => {
+                    commit('setToken', res.data.token, {root: true})
+                    resolve()
+                })
+                .catch(err => reject(err))
         })
     },
-    addTodo: function ({commit}, todo) {
+    getTodos: function ({commit, rootState}){
+        return new Promise((resolve,reject) => {
+            const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos`
+            const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
+            axios.get(url, config)
+                .then(res => {
+                    commit('setList', res.data.todos)
+                    resolve()
+                })
+                .catch(err => reject(err))
+        })
+    },
+    addTodo: function ({commit, rootState}, todo) {
         return new Promise((resolve, reject) => {
-            try {
-                commit('push', todo)
-                resolve()
-            } catch (e) { reject(e) }
+            const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos`
+            const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
+            axios.post(url, todo, config)
+                .then(resolve())
+                .catch(err => reject(err))
         })
     },
     removeTodo: function ({commit}, todo) {
