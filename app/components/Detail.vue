@@ -27,14 +27,12 @@
             },
             onChange: function () {
                 this['todo/updateTodo'](this.todo)
-                    .then(() => this['todo/getTodos']())
                     .catch(err => this['setError'](err))
             },
             onDelete: function () {
                 this['todo/removeTodo'](this.todo)
-                    .then(() => this['todo/getTodos']())
+                    .then(() => this.$navigateBack())
                     .catch(err => this['setError'](err))
-                    .finally(() => this.$navigateBack())
             }
         }
     }

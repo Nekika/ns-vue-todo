@@ -45,22 +45,29 @@ const actions = {
             const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos`
             const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
             axios.post(url, todo, config)
-                .then(() => { return dispatch('getTodos')})
+                .then(() => { return dispatch('getTodos') })
                 .catch(err => reject(err))
                 .finally(resolve())
         })
     },
-    removeTodo: function ({commit}, todo) {
+    removeTodo: function ({dispatch, rootState}, todo) {
         return new Promise((resolve, reject) => {
-            try {
-                commit('remove', todo)
-                resolve()
-            } catch (e) { reject(e) }
+            const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos/${todo.uuid}`
+            const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
+            axios.delete(url, config)
+                .then(() => { return dispatch('getTodos') })
+                .catch(err => reject(err))
+                .finally(resolve())
         })
     },
-    updateTodo: function ({commit}, todo) {
+    updateTodo: function ({state, dispatch, rootState}, todo) {
         return new Promise((resolve, reject) => {
-
+            const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos/${todo.uuid}`
+            const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
+            axios.put(url, todo, config)
+                .then(() => { return dispatch('getTodos') })
+                .catch(err => reject(err))
+                .finally(resolve())
         })
     }
 }
