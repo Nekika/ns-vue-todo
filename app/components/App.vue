@@ -11,12 +11,12 @@
 <script>
     import TodoList from './TodoList';
     import AddItem from './AddItem';
-    import {mapActions} from 'vuex'
+    import {mapMutations,mapActions} from 'vuex'
     export default {
         components: { TodoList, AddItem },
         methods: {
+            ...mapMutations(['setError']),
             ...mapActions([
-                'setError',
                 'todo/init',
                 'todo/getTodos'
             ]),

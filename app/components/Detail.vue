@@ -13,14 +13,14 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapMutations, mapActions} from 'vuex'
     export default {
         props: ['todo'],
         methods: {
+            ...mapMutations(['setError']),
             ...mapActions([
                 'todo/updateTodo',
                 'todo/removeTodo',
-                'setError'
             ]),
             onBackTap: function () {
                 this.$navigateBack()

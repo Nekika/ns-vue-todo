@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapMutations, mapActions} from 'vuex'
     import TodoItem from "./TodoItem"
     import Detail from "./Detail"
 
@@ -21,7 +21,8 @@
             })
         },
         methods: {
-            ...mapActions('todo', ['updateTodo', 'save']),
+            ...mapMutations(['setError']),
+            ...mapActions(['todo/updateTodo']),
             onTodoTap: function (todo) {
                 this.$navigateTo(Detail, {
                     props: {
@@ -30,9 +31,8 @@
                 }).catch(error => console.log(error))
             },
             onTodoToggled: function (todo) {
-                this.updateTodo(todo)
-                    .then(this.save())
-                    .catch(err => console.log(err))
+                this['todo/updateTodo'](todo)
+                    .catch(err => this['setError'](err))
             }
         },
         components: { TodoItem, Detail }
