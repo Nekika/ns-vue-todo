@@ -1,6 +1,6 @@
 <template>
     <GridLayout columns="100, *" :class="todo.done ? 'done' : ''">
-        <Button col="0" :text="status" @tap="toggle"></Button>
+        <Switch col="0" :checked="status" @checkedChange="toggle"></Switch>
         <Label col="1" :text="todo.content"></Label>
     </GridLayout>
 </template>
@@ -10,7 +10,7 @@
         props: ['todo'],
         computed: {
             status: function () {
-                return this.todo.done ? 'Done' : 'Not done';
+                return this.todo.done
             }
         },
         methods: {

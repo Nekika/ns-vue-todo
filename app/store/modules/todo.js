@@ -63,10 +63,10 @@ const actions = {
         return new Promise((resolve, reject) => {
             const url = `https://api.todolist.sherpa.one/users/${rootState.uuid}/todos/${todo.uuid}`
             const config = { headers: { Authorization: `Bearer ${rootState.token}` } }
-            axios.put(url, todo, config)
+            axios.patch(url, todo, config)
                 .then(() => { return dispatch('getTodos') })
                 .catch(err => reject(err))
-                .finally(resolve())
+                .finally(() =>  resolve())
         })
     }
 }
